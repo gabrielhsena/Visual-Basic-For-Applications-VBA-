@@ -10,7 +10,7 @@ Dim i As Integer, FilterIndex As Integer, TmpInteger As Integer
 Dim Filename As Variant
 Dim book1 As Workbook, book2 As Workbook
 Dim FlagErro As Boolean
-Global var_DataAnalisada As String, TotalDias As Integer, xcell
+Global var_DataAnalisada As String, TotalDias As Integer, xCell
 
 'Macro para abrir vários arquivos
 Sub OpenFiles()
@@ -34,20 +34,20 @@ Sub OpenFiles()
     Title = "Abra o Arquivo " & NomeArquivo & "..."
 
     With Application
-            
-            ' Reset Drive/Path
-            If Left(.DefaultFilePath, 1) <> "\" Then
+
+        ' Reset Drive/Path
+        If Left(.DefaultFilePath, 1) <> "\" Then
             ' Seleciona o drive inicial
-                ChDrive (Left(CStr(Environ("USERPROFILE")), 1))
-                ChDir (CStr(Environ("USERPROFILE")))
-            Else
+            ChDrive (Left(CStr(Environ("USERPROFILE")), 1))
+            ChDir (CStr(Environ("USERPROFILE")))
+        Else
             ChDrive (Left(WBPath, 1))
             ChDir (WBPath)
-            End If
-            ' Nomes dos arquivos = arquivos selecionados
-            Filename = .GetOpenFilename(Filter, FilterIndex, Title, , True)
-            
-        End With
+        End If
+        ' Nomes dos arquivos = arquivos selecionados
+        Filename = .GetOpenFilename(Filter, FilterIndex, Title, , True)
+
+    End With
     ' Sair quando cancela
     If Not IsArray(Filename) Then
         MsgBox "Nenhum arquivo foi escolhido."
@@ -104,34 +104,44 @@ End Sub
 
 Sub UpperCase()
 'Converte em maiusculo e tira os espaços desnecessários
-    For Each xcell In Selection
-        xcell.Value = Trim(UCase(xcell.Value))
-    Next xcell
+    For Each xCell In Selection
+        xCell.Value = Trim(UCase(xCell.Value))
+    Next xCell
 End Sub
 
 Sub TrimCells()
 'Converte em maiusculo e tira os espaços desnecessários
-    For Each xcell In Selection
-        xcell.Value = Trim(xcell.Value)
-    Next xcell
+    For Each xCell In Selection
+        xCell.Value = Trim(xCell.Value)
+    Next xCell
 End Sub
 
 Sub DateConv()
-    For Each xcell In Selection
-        If IsNumeric(xcell.Value) Then GoTo NextXcell:
-        xcell.Value = CDbl(DateValue(xcell.Value))
+    For Each xCell In Selection
+        If IsNumeric(xCell.Value) Then GoTo NextXcell:
+        xCell.Value = CDbl(DateValue(xCell.Value))
 NextXcell:
-        xcell.NumberFormat = "dd/mm/yyyy"
-    Next xcell
+        xCell.NumberFormat = "dd/mm/yyyy"
+    Next xCell
 End Sub
 
 Sub TimeConv()
-    For Each xcell In Selection
-        If IsNumeric(xcell.Value) Then GoTo NextXcell:
-        xcell.Value = CDbl(TimeValue(xcell.Value))
+    For Each xCell In Selection
+        If IsNumeric(xCell.Value) Then GoTo NextXcell:
+        xCell.Value = CDbl(TimeValue(xCell.Value))
 NextXcell:
-        xcell.NumberFormat = "hh:mm:ss"
-    Next xcell
+        xCell.NumberFormat = "hh:mm:ss"
+    Next xCell
+End Sub
+
+Sub Convert_text_to_number()
+    BetterPerformace True
+    
+    For Each xCell In Selection
+        If IsNumeric(xCell) Then xCell.Value = 1 * xCell.Value
+    Next xCell
+    
+    BetterPerformace False
 End Sub
 
 Sub DeletaWS()
@@ -325,7 +335,7 @@ End Sub
 
 Sub SubProcesso()
     BetterPerformace True
-    
+
     'código
 
     BetterPerformace False
@@ -354,4 +364,3 @@ Sub Remove_Links()
     End If
 
 End Sub
-
