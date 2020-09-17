@@ -364,3 +364,15 @@ Sub Remove_Links()
     End If
 
 End Sub
+                        
+Sub ReplaceAccentedChar()
+Const sFm As String = "ŠŽšžŸÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðñòóôõöùúûüýÿ"
+Const sTo As String = "SZszYAAAAAACEEEEIIIIDNOOOOOUUUUYaaaaaaceeeeiiiidnooooouuuuyy"
+Dim i As Long, ws As Worksheet
+
+For Each ws In ThisWorkbook.Worksheets
+    For i = 1 To Len(sFm)
+        ws.Cells.Replace Mid(sFm, i, 1), Mid(sTo, i, 1), LookAt:=xlPart, MatchCase:=True
+    Next i
+Next ws
+End Sub                        
