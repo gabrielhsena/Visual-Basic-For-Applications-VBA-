@@ -5,6 +5,29 @@ Mod_Functions
 ' Purpose   : FUNÇÕES GERAIS
 '---------------------------------------------------------------------------------------
 
+'Função MsgBox com Timeout
+Private Declare Function MsgBoxTimeout Lib "user32" Alias "MessageBoxTimeoutA" (ByVal hwnd As Long, ByVal lpText As String, ByVal lpCaption As String, ByVal wType As VbMsgBoxStyle, ByVal wlange As Long, ByVal dwTimeout As Long) As Long
+
+
+Sub Function_Time()
+
+    Dim TotalTime As Date
+    STime = Now()
+    
+
+    ETime = Now()
+    TotalTime = ETime - STime
+    Resumo = "Processo Concluído. Tempo Total: " & TotalTime & vbCrLf & "Arquivo criado com sucesso: " & vbCrLf & TargetFile
+    MsgBoxTimeout 0, Resumo, "Conluído", vbInformation, 0, 5000
+
+    Application.StatusBar = False
+
+End Sub
+
+
+
+
+
 'Função para determinar a existência de um arquivo.
 Public Function FileExists(ByVal Filename As String) As Boolean
 'Verifica se o caminho não é vazio ou se não há erros
