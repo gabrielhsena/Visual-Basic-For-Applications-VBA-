@@ -6,7 +6,12 @@ Mod_Functions
 '---------------------------------------------------------------------------------------
 
 'Função MsgBox com Timeout
+'Função MsgBox com Timeout
+#If VB7 Then
+Private Declare PtrSafe Function MsgBoxTimeout Lib "user32" Alias "MessageBoxTimeoutA" (ByVal hwnd As Long, ByVal lpText As String, ByVal lpCaption As String, ByVal wType As VbMsgBoxStyle, ByVal wlange As Long, ByVal dwTimeout As Long) As Long
+#Else
 Private Declare Function MsgBoxTimeout Lib "user32" Alias "MessageBoxTimeoutA" (ByVal hwnd As Long, ByVal lpText As String, ByVal lpCaption As String, ByVal wType As VbMsgBoxStyle, ByVal wlange As Long, ByVal dwTimeout As Long) As Long
+#End If
 
 
 Sub Function_Time()
