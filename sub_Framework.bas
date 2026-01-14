@@ -375,4 +375,41 @@ For Each ws In ThisWorkbook.Worksheets
         ws.Cells.Replace Mid(sFm, i, 1), Mid(sTo, i, 1), LookAt:=xlPart, MatchCase:=True
     Next i
 Next ws
-End Sub                        
+End Sub       
+
+
+
+Sub HTML()
+
+
+Application.ScreenUpdating = False
+Application.Calculation = xlCalculationManual
+
+
+Dim RC, CC, iRow, iCol
+
+
+RC = ActiveSheet.UsedRange.Rows.Count
+CC = ActiveSheet.UsedRange.Columns.Count
+
+For iRow = 2 To RC
+
+
+Cells(iRow, CC + 1).Value = "<table>"
+
+For iCol = 1 To CC
+
+Cells(iRow, CC + 1).Value = Cells(iRow, CC + 1).Value & "<tr><td>" & Cells(1, iCol).Value & "</td>"
+Cells(iRow, CC + 1).Value = Cells(iRow, CC + 1).Value & "<td>" & Cells(iRow, iCol).Value & "</td></tr>"
+
+Next iCol
+
+Cells(iRow, CC + 1).Value = Cells(iRow, CC + 1).Value & "</table>"
+
+Next iRow
+
+Application.ScreenUpdating = True
+Application.Calculation = xlCalculationAutomatic
+
+End Sub
+
